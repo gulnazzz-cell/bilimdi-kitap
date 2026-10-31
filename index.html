@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matematika Kids</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:"Trebuchet MS",Arial,sans-serif;
+ background:#f4f1ff;color:#302b50;
+}
+header{
+ background:white;padding:16px 5%;
+ display:flex;justify-content:space-between;
+ align-items:center;box-shadow:0 3px 15px #0001;
+}
+.logo{font-size:24px;font-weight:900;color:#7044db}
+.logo span{color:#ffad39}
+.score{background:#fff3cf;padding:10px 16px;border-radius:20px;font-weight:bold}
+main{max-width:1100px;margin:auto;padding:20px}
+.hero{
+ background:linear-gradient(120deg,#754ce5,#a68bff);
+ color:white;border-radius:25px;padding:28px;
+ display:flex;justify-content:space-between;align-items:center;
+ min-height:180px;overflow:hidden;
+}
+.hero h1{font-size:30px;margin:0 0 10px}
+.hero p{margin:0;line-height:1.5}
+.hero .emoji{font-size:85px}
+.section-title{font-size:22px;margin:25px 0 15px}
+.lessons{
+ display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+}
+.lesson{
+ border:0;border-radius:18px;padding:18px 8px;
+ cursor:pointer;font-size:15px;font-weight:bold;
+ min-height:105px;transition:.2s;
+ box-shadow:0 4px 10px #0001;
+}
+.lesson:hover{transform:translateY(-4px)}
+.lesson span{display:block;font-size:35px;margin-bottom:8px}
+.purple{background:#e8ddff;color:#5733ba}
+.yellow{background:#fff0c5;color:#926000}
+.green{background:#d9f6e6;color:#237d50}
+.pink{background:#ffe0ec;color:#bd4778}
+.game{
+ background:white;margin-top:25px;padding:25px;
+ border-radius:22px;box-shadow:0 5px 20px #0001;
+ text-align:center;
+}
+.game h2{margin:0 0 8px;color:#6945d2}
+.subtitle{color:#888;font-size:14px}
+.question{
+ font-size:54px;font-weight:900;color:#5734be;
+ margin:25px 0;
+}
+.objects{font-size:39px;min-height:65px;line-height:1.5}
+.answers{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:12px;max-width:550px;margin:20px auto;
+}
+.answer{
+ background:#f0ebff;border:3px solid transparent;
+ padding:18px;border-radius:16px;font-size:27px;
+ font-weight:bold;color:#5734be;cursor:pointer;
+}
+.answer:hover{border-color:#8c69ef;background:#e5dcff}
+.answer:disabled{cursor:default;opacity:.8}
+.message{
+ padding:15px;background:#f5f3ff;
+ border-radius:13px;margin:15px auto;
+ max-width:550px;min-height:48px;
+}
+.actions button{
+ border:0;padding:14px 25px;border-radius:12px;
+ cursor:pointer;font-weight:bold;margin:5px;font-size:15px;
+}
+.primary{background:#7049db;color:white}
+.secondary{background:#fff0c7;color:#795600}
+.progress{
+ background:#eee;border-radius:20px;height:10px;
+ margin:20px auto;max-width:550px;overflow:hidden;
+}
+#bar{height:100%;background:#ffb83f;width:0%;transition:.3s}
+.footer{text-align:center;padding:25px;color:#999;font-size:13px}
+.hidden{display:none}
+@media(max-width:650px){
+ .hero h1{font-size:23px}
+ .hero .emoji{font-size:55px}
+ .lessons{grid-template-columns:repeat(2,1fr)}
+ .question{font-size:43px}
+ main{padding:12px}
+ .game{padding:17px 10px}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <div class="logo">🌈 MATEMATIKA<span> KIDS</span></div>
+ <div class="score">⭐ Ұпай: <b id="total">0</b></div>
+</header>
+
+<main>
+
+<section class="hero">
+ <div>
+  <h1>Сәлем, жас математик! 👋</h1>
+  <p>Сандар әлеміне саяхат жасаймыз!<br>
+  Ойна, сана, есепте және жұлдызша жина!</p>
+ </div>
+ <div class="emoji">🧸🔢</div>
+</section>
+
+<h2 class="section-title">📚 Бүгін не үйренеміз?</h2>
+
+<div class="lessons">
+ <button class="lesson purple" onclick="start('plus')">
+  <span>➕</span>Қосу
+ </button>
+ <button class="lesson yellow" onclick="start('minus')">
+  <span>➖</span>Азайту
+ </button>
+ <button class="lesson green" onclick="start('count')">
+  <span>🍎</span>Санау
+ </button>
+ <button class="lesson pink" onclick="start('logic')">
+  <span>🧩</span>Логика
+ </button>
+</div>
+
+<section class="game">
+ <h2 id="gameTitle">🎮 Математикалық ойын</h2>
+ <p class="subtitle" id="subtitle">
+  Өзіңе ұнайтын тапсырманы таңда!
+ </p>
+
+ <div class="progress"><div id="bar"></div></div>
+
+ <div class="objects" id="objects">🌟 🌈 🦋 🌸</div>
+
+ <div class="question" id="question">
+  Дайынсың ба?
+ </div>
+
+ <div class="answers" id="answers">
+  <button class="answer" onclick="start('plus')">➕ Қосу</button>
+  <button class="answer" onclick="start('minus')">➖ Азайту</button>
+  <button class="answer" onclick="start('count')">🍎 Санау</button>
+ </div>
+
+ <div class="message" id="message">
+  Сабақты бастау үшін жоғарыдағы бөлімдердің бірін таңда 😊
+ </div>
+
+ <div class="actions">
+  <button class="primary" id="next" onclick="nextQuestion()">
+   Келесі тапсырма →
+  </button>
+  <button class="secondary" onclick="restart()">
+   ↻ Қайта бастау
+  </button>
+ </div>
+</section>
+
+<section class="game">
+ <h2>🏆 Менің жетістіктерім</h2>
+ <p>Жинаған жұлдызшалар:</p>
+ <div style="font-size:35px" id="stars">☆☆☆☆☆</div>
+ <p id="achievement">Алғашқы жұлдызшаңды жина!</p>
+</section>
+
+</main>
+
+<div class="footer">
+ MATEMATIKA KIDS · 1-СЫНЫП · БІЛІМ АЛУ ҚЫЗЫҚ! 💜
+</div>
+
+<script>
+let type='';
+let current=0;
+let points=0;
+let correct=0;
+let locked=false;
+let max=10;
+
+const $=id=>document.getElementById(id);
+
+function start(t){
+ type=t;
+ current=0;
+ locked=false;
+ $('next').disabled=false;
+ $('gameTitle').textContent={
+ plus:'➕ ҚОСУДЫ ҮЙРЕНЕМІЗ',
+ minus:'➖ АЗАЙТУДЫ ҮЙРЕНЕМІЗ',
+ count:'🍎 САНАП ҮЙРЕНЕМІЗ',
+ logic:'🧩 ЛОГИКАЛЫҚ ОЙЫН'
+ }[t];
+ $('subtitle').textContent='10 тапсырманы орындап, жұлдызша жина!';
+ question();
+ document.querySelector('.game').scrollIntoView({behavior:'smooth'});
+}
+
+function question(){
+ locked=false;
+ $('next').disabled=true;
+ $('message').textContent='🤔 Дұрыс жауапты таңда!';
+ $('bar').style.width=(current/max*100)+'%';
+ $('subtitle').textContent='Тапсырма '+(current+1)+' / '+max;
+
+ let a=Math.floor(Math.random()*9)+1;
+ let b=Math.floor(Math.random()*9)+1;
+ let answer;
+ let q='';
+
+ if(type==='plus'){
+  answer=a+b;
+  q=a+' + '+b+' = ?';
+  $('objects').textContent='🟡 '.repeat(a)+' + 🔵 '.repeat(b);
+ }
+ if(type==='minus'){
+  if(b>a)[a,b]=[b,a];
+  answer=a-b;
+  q=a+' − '+b+' = ?';
+  $('objects').textContent='🍎 '.repeat(a)+'\n− '+b+' алманы алып таста';
+ }
+ if(type==='count'){
+  answer=Math.floor(Math.random()*10)+1;
+  const icons=['🍎','⭐','🐻','🌸','🦋'];
+  let icon=icons[Math.floor(Math.random()*icons.length)];
+  $('objects').textContent=icon.repeat(answer);
+  q='Неше зат бар?';
+ }
+ if(type==='logic'){
+  a=Math.floor(Math.random()*8)+1;
+  answer=a+1;
+  q=a+', '+answer+' , ?';
+  $('objects').textContent='🔢 Сандар тізбегі';
+ }
+ correct=answer;
+ $('question').textContent=q;
+
+ let options=new Set([answer]);
+ while(options.size<3){
+  let v=answer+Math.floor(Math.random()*7)-3;
+  if(v>=0 && v<=20)options.add(v);
+ }
+ let arr=[...options].sort(()=>Math.random()-.5);
+
+ $('answers').innerHTML='';
+ arr.forEach(n=>{
+  let btn=document.createElement('button');
+  btn.className='answer';
+  btn.textContent=n;
+  btn.onclick=()=>check(n,btn);
+  $('answers').appendChild(btn);
+ });
+}
+
+function check(n,btn){
+ if(locked)return;
+ if(n===correct){
+  locked=true;
+  points++;
+  $('total').textContent=points;
+  $('message').textContent='🎉 ЖАРАЙСЫҢ! Дұрыс жауап! +1 ⭐';
+  btn.style.background='#c9f6d9';
+  btn.style.borderColor='#35bb77';
+  $('next').disabled=false;
+  $('bar').style.width=((current+1)/max*100)+'%';
+  document.querySelectorAll('.answer').forEach(b=>b.disabled=true);
+  updateStars();
+ }else{
+  $('message').textContent='😊 Қайта ойланып көр! Сенің қолыңнан келеді!';
+  btn.style.background='#ffe0e0';
+ }
+}
+
+function nextQuestion(){
+ if(!type)return;
+ if(!locked){
+  $('message').textContent='Алдымен дұрыс жауапты таңда 😊';
+  return;
+ }
+ current++;
+ if(current>=max){
+  $('question').textContent='🏆 ЖЕҢІМПАЗ!';
+  $('objects').textContent='🎉 🌟 🎊 🌟 🎉';
+  $('answers').innerHTML='';
+  $('message').textContent='Керемет! 10 тапсырманың бәрін аяқтадың!';
+  $('subtitle').textContent='Сен нағыз жас математиксің!';
+  $('next').disabled=true;
+  $('bar').style.width='100%';
+  return;
+ }
+ question();
+}
+
+function restart(){
+ if(type)start(type);
+ else{
+  current=0;
+  $('question').textContent='Дайынсың ба?';
+  $('objects').textContent='🌟 🌈 🦋 🌸';
+  $('message').textContent='Өзіңе ұнайтын тапсырманы таңда!';
+  $('answers').innerHTML='';
+  $('bar').style.width='0%';
+ }
+}
+
+function updateStars(){
+ let s=Math.min(5,Math.floor(points/2));
+ $('stars').textContent='⭐'.repeat(s)+'☆'.repeat(5-s);
+ $('achievement').textContent=
+ points>=10?'🏆 Математика жұлдызы!':
+ points>=5?'👏 Өте жақсы! Жалғастыр!':
+ 'Жарайсың! Тағы жұлдызша жина!';
+}
+</script>
+</body>
+</html>
